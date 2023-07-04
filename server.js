@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const db = require('./db/db.json');
 const uuid = require('./helpers/uuid')
-const {readFile, writeFile, readAndAppend} = require('fs/promises');
+const {readFromFile, writeToFile, readAndAppend} = require('./helpers/fsUtils');
 
 // Initializes express module
 const app = express();
@@ -22,15 +22,11 @@ app.get('/', (req, res) => res.send('Navigate to /notes or /*'));
 
 // Get method to send notes file
 app.get('/notes', (req, res) => 
-    res.sendFile(path.join(__dirname, 'public/notes.html')));
-
-// Get method to send index file
-app.get('/*', (req, res) => 
-    res.sendFile(path.join(__dirname, 'public/index.html')));    
+    res.sendFile(path.join(__dirname, 'public/notes.html')));  
 
 // Reads file from db folder
 app.get('/api/notes', (req, res) => {
-    req.json(`${req.method} request received`); 
+    res.json(`${req.method} request received`); 
     console.info(`${req.method} request received for note`);
 readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
@@ -51,6 +47,9 @@ app.post('/api/notes', (req, res) => {
     }
 });
 
+// Get method to send index file
+app.get('/*', (req, res) => 
+    res.sendFile(path.join(__dirname, 'public/index.html')));  
     
 
 
