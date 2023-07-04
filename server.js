@@ -2,7 +2,8 @@
 const express = require('express');
 const path = require('path');
 const db = require('./db/db.json');
-// const {readFile, writeFile} = require('fs/promises');
+const uuid = require('./helpers/uuid')
+const {readFile, writeFile, readAndAppend} = require('fs/promises');
 
 // Initializes express module
 const app = express();
@@ -29,7 +30,8 @@ app.get('/*', (req, res) =>
 
 // Reads file from db folder
 app.get('/api/notes', (req, res) => {
-    console.info(`${req.method} request received for tips`);
+    req.json(`${req.method} request received`); 
+    console.info(`${req.method} request received for note`);
 readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
@@ -40,7 +42,7 @@ app.post('/api/notes', (req, res) => {
         const newNote = {
             title,
             text, 
-            note_it: uuid(),
+            note_id: uuid(),
         };
     readAndAppend(newNote, './db/db.json');
     res.json('Note added successfully');
@@ -50,7 +52,7 @@ app.post('/api/notes', (req, res) => {
 });
 
     
-// app.get('/api', (req, res) => res.json('db'));
+
 
 app.listen(PORT, () =>
     console.log(`Listening at http://localhost:${PORT}`))
