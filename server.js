@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const db = require('./db/db.json');
 const uuid = require('./helpers/uuid')
-const {readFromFile, writeToFile, readAndAppend} = require('./helpers/fsUtils');
+const {readFromFile, readAndAppend} = require('./helpers/fsUtils');
 
 // Initializes express module
 const app = express();
