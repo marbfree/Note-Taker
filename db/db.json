@@ -1,9 +1,5 @@
 [
     {
-        "title": "Test Title",
-        "text": "Test text"
-    },
-    {
         "title": "Title",
         "text": "Text",
         "id": "3da"
@@ -15,7 +11,7 @@
     },
     {
         "title": "Add Notes",
-        "text": "New Note\n",
+        "text": "New Note",
         "id": "eb0"
     },
     {
