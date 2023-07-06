@@ -45,6 +45,10 @@ app.post('/api/notes', (req, res) => {
     }
 }); 
 
+app.get('/db.json/:id'), (req, res) => {
+    readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)))
+    };
+
 // Get method to send index file
 app.get('/*', (req, res) => 
     res.sendFile(path.join(__dirname, 'public/index.html')));     
