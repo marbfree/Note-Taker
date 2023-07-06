@@ -1,7 +1,6 @@
 // Imports libraries and files
 const express = require('express');
 const path = require('path');
-const db = require('./db/db.json');
 const uuid = require('./helpers/uuid')
 const {readFromFile, readAndAppend} = require('./helpers/fsUtils');
 
@@ -14,7 +13,6 @@ const PORT = process.env.PORT || 3001
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
 app.use(express.static('public'));
 
 // Get method to respond with notes or index file
@@ -30,6 +28,7 @@ app.get('/api/notes', (req, res) => {
 readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
+// adds new note to existing list of notes
 app.post('/api/notes', (req, res) => {
     console.info(`${req.method} request received to add a note`);
     const { title, text } = req.body;
@@ -37,7 +36,7 @@ app.post('/api/notes', (req, res) => {
         const newNote = {
             title,
             text, 
-            note_id: uuid(),
+            id: uuid(),
         };
     readAndAppend(newNote, './db/db.json');
     res.json('Note added successfully');
@@ -50,6 +49,6 @@ app.post('/api/notes', (req, res) => {
 app.get('/*', (req, res) => 
     res.sendFile(path.join(__dirname, 'public/index.html')));     
 
-
+// listens to the port for api hit
 app.listen(PORT, () =>
     console.log(`Listening at http://localhost:${PORT}`))

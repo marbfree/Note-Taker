@@ -4,8 +4,18 @@
         "text": "Test text"
     },
     {
+        "title": "Title",
+        "text": "Text",
+        "id": "3da"
+    },
+    {
         "title": "note",
-        "text": "note",
-        "note_id": "10a"
+        "text": "note text",
+        "id": "0e6"
+    },
+    {
+        "title": "Add Notes",
+        "text": "New Note\n",
+        "id": "eb0"
     }
 ]
